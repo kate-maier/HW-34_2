@@ -54,6 +54,7 @@ let products = [
     }
 ];
 
+
 mainCatalog.forEach((catalogItem) => {
     catalogItem.addEventListener('click', (event) => {
         productsNames.innerHTML = '';
@@ -63,47 +64,58 @@ mainCatalog.forEach((catalogItem) => {
 
         products.forEach((product) => {
             if (product.category === catalogItemId) {
-                let p = document.createElement('p');
-                p.textContent = product.name;
-                p.classList.add('productCard');
-                productsNames.appendChild(p);
+                let category = document.createElement('p');
+                category.textContent = product.name;
+                category.classList.add('productCard');
+                productsNames.appendChild(category);
 
-                p.addEventListener('click', (event) => {
+                category.addEventListener('click', (event) => {
                     productsInfoCards.innerHTML = '';
                     let target = event.target;
-                    const name = target.textContent;
+                    let name = target.textContent;
 
                     products.forEach((product) => {
 
                         if (product.name === name) {
-                            let p = document.createElement('p');
-                            p.textContent = product.info;
-                            p.classList.add('productInfo');
-                            productsInfoCards.appendChild(p);
+                            let info = document.createElement('p');
+                            info.textContent = product.info;
+                            info.classList.add('productInfo');
+                            productsInfoCards.appendChild(info);
                         }
                     })
 
                     let button = document.createElement('button');
                     button.classList.add('buyBtn');
                     button.textContent = 'Купити';
+                    button.id = 'btn';
                     productsInfoCards.appendChild(button);
 
-                    button.addEventListener('click', () => {
-                        let message = document.createElement('p');
-                        message.classList.add('message');
-                        message.textContent = 'Товар куплений';
-                        productsInfoCards.appendChild(message);
-
-                        button.setAttribute('disabled', 'disabled');
-
-                        setTimeout(() => {
-                            productsNames.innerHTML = '';
-                            productsInfoCards.innerHTML = '';
-                        }, 2000)
-                    })
+                    addButtonEvent();
                 })
             }
         })
     }
     )
 })
+
+function addButtonEvent() {
+    let btn = document.getElementById('btn');
+    btn.addEventListener('click', () => {
+        let message = document.createElement('p');
+        message.classList.add('message');
+        message.textContent = 'Товар куплений';
+        productsInfoCards.appendChild(message);
+
+        btn.setAttribute('disabled', 'disabled');
+
+        setTimeout(() => {
+            productsNames.innerHTML = '';
+            productsInfoCards.innerHTML = '';
+        }, 2000)
+    })
+}
+
+
+// console.log(btn);
+
+
